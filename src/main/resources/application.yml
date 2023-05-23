@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: eureka-server  # 각 마이크로서비스의 고유 아이디 지정
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/study
+    username: root
+    password: 1234
+
+
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: none # DDL(create, alter, drop) 정의시 DB의 고유 기능을 사용할 수 있다. # 애플리케이션 실행 시점에 테이블 다 지우고 앤터티 보고 다시 생성
+      use-new-id-generator-mappings: false
+      show-sql: true # true 설정시 JPA 쿼리문 확인 가능
+      format_sql: true # JPA의 구현체인 Hibernate가 동작하면서 발생한 SQL의 가독성을 높여준다.
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+
+server:
+  port: 8761 # 유레카 서버가 웹 서비스 성격으로써 기동시킨다.
+
+eureka:
+  client:
+    register-with-eureka: false # 다른 마이크로 서비스가 유레카서버와 데이터를 주고받을필요는 없기 때문에 자기 자신은 등록하지 않는다. 즉, 서버로써 기동만 한다.
+    fetch-registry: false
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
